@@ -1,7 +1,7 @@
 """
 The "Hourly Income" Plugin
 """
-import Tkinter as tk
+import tkinter as tk
 import sys
 import time
 from l10n import Locale
@@ -166,6 +166,11 @@ def plugin_start():
     this.hourlyincome = hourlyincome
     # this.hourlyincome.transaction(0)
 
+def plugin_start3(plugin_dir):
+    hourlyincome = HourlyIncome()
+    hourlyincome.load()
+    this.hourlyincome = hourlyincome
+    # this.hourlyincome.transaction(0)
 
 def plugin_app(parent):
     """
@@ -209,7 +214,7 @@ def plugin_app(parent):
     return frame
 
 
-def journal_entry(cmdr, system, station, entry, state):
+def journal_entry(cmdr, is_beta, system, station, entry, state):
     """
     Process a journal event
     :param cmdr:
