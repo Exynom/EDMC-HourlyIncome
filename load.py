@@ -1,7 +1,10 @@
 """
 The "Hourly Income" Plugin
 """
-import tkinter as tk
+try: #py3
+    import tkinter as tk
+except: #py2
+    import Tkinter as tk
 import sys
 import time
 from l10n import Locale
