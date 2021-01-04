@@ -301,8 +301,8 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         elif "SearchAndRescue" in entry["event"]:
             this.hourlyincome.transaction(entry["Reward"])
         elif "MissionCompleted" in entry["event"]:
-            if "Dontation" in entry:
-                this.hourlyincome.transaction(-entry["Dontation"])
+            if "Donation" in entry:
+                this.hourlyincome.transaction(-entry["Donation"])
             else:
                 this.hourlyincome.transaction(entry["Reward"])
         # ! npc crew
