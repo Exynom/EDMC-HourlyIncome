@@ -141,7 +141,7 @@ class HourlyIncome(object):
         :param msg:
         :return:
         """
-        msg = "{} Visits/hr".format(Locale.stringFromNumber(self.rate(), 2))
+        msg = readable_format(self.rate()) + " Visits/hr"
         self.rate_widget.after(0, self.rate_widget.config, {"text": msg})
 
     def update_hourlyincome(self):
@@ -150,7 +150,7 @@ class HourlyIncome(object):
         :param msg:
         :return:
         """
-        msg = "{} Cr/hr".format(Locale.stringFromNumber(self.speed(), 2))
+        msg = readable_format(self.speed()) + " Cr/hr"
         self.speed_widget.after(0, self.speed_widget.config, {"text": msg})
 
     def update_earned(self):
@@ -159,9 +159,18 @@ class HourlyIncome(object):
         :param msg:
         :return:
         """
-        msg = "{} Cr".format(Locale.stringFromNumber(self.trip_earnings() + self.saved_earnings, 2))
+        msg = readable_format(self.trip_earnings() + self.saved_earnings) + " Cr"
         self.earned_widget.after(0, self.earned_widget.config, {"text": msg})
 
+def readable_format(num):
+    num = float('{:.3g}'.format(num))
+    if abs(num) >= 1.00e+18:
+        return "{:.2e}".format(num)
+    magnitude = 0
+    while abs(num) >= 1000:
+        magnitude += 1
+        num /= 1000.0
+    return '{}{}'.format('{:f}'.format(num).rstrip('0').rstrip('.'), ['', 'K', 'M', 'B', 'T', 'Q'][magnitude])
 
 def plugin_start():
     hourlyincome = HourlyIncome()
